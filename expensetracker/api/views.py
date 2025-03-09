@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import login,logout,authenticate
-from api.models import Expenses
+from api.models import Expenses, totals
 from rest_framework import status
 
 #Admin pass and id vishu 12
@@ -81,6 +81,7 @@ def send_expense_info(request):
             # investement,
             # date
             data = request.data
+            user = request.data.user
             print(f"The Data inside the sending information : {data}")
             expense_name = data['expense_name']
             description = data['description']
@@ -91,6 +92,7 @@ def send_expense_info(request):
             investment = data['investement']
 
             expense = Expenses.objects.create(name=expense_name,
+                user = user,
                 description=description,
                 amount=amount,
                 date=date,
@@ -99,15 +101,25 @@ def send_expense_info(request):
                 investment=investment )
             expense.save()
 
-            if investment == True:
-                invested_money += amount
-                print(f"The invested  money is {invested_money}")
-            else :
-                spended_money += amount 
-                print(f"The Spended Money is this {spended_money}")
-                pass
-            print(f"The Object that we are saving in the DB is as :{expense}")
-            return Response({"message":"Expense saved successfully!"}, status=status.HTTP_201_CREATED)
+            # Get or create totals for the user
+            user_totals, created = totals.objects.get_or_create(user=user)
+            
+            # Update the totals based on investment type
+            if data['investment']:
+                user_totals.invested_money += data['amount']
+            else:
+                user_totals.spent_money += data['amount']
+            
+            user_totals.save()
+
+            return Response({
+                "message": "Expense saved successfully!",
+                "totals": {
+                    "invested": user_totals.invested_money,
+                    "spent": user_totals.spent_money
+                }
+            }, status=status.HTTP_201_CREATED)
+
 
         except Exception as e :
             print(f"The Exception occur in the send Expense Info Function is {e}")

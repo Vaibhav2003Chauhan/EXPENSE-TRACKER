@@ -74,7 +74,7 @@ function Expense() {
             console.log('Success:', result);
         }
         catch (err) {
-
+                console.log("The Log is in the error ")
         }
     };
 
