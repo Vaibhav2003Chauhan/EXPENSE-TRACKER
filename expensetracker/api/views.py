@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import login,logout,authenticate
 from api.models import Expenses, totals
 from rest_framework import status
+from django.http import JsonResponse
 
 #Admin pass and id vishu 12
 invested_money=0 
@@ -38,34 +39,31 @@ def signup(request):
     except Exception as e :
         print(e)
         return Response({"status" : "Signup unsuccessfull" , "error" : str(e) })
+    
 
 @api_view(['POST'])
 def signin(request):
-    data = request.data
-    print(f"The Data in the Signup function is {data}")
-    username = data['username']
-    email = data['email']
-    password = data['password']
-    print(f"The username and email, password in Login function is :{username} {email} {password}")
-    if User.objects.filter(email = email).exists() == True :
-        # User exist and we can try to login in the account
-        user = authenticate(username = username, password = password)
-        if user is not None :
-            login(request,user)
-            return Response({"status" : "User login Successfull"})
+    try :
+        data = request.data
+        print(f"The Data in the Signup function is {data}")
+        username = data['username']
+        email = data['email']
+        password = data['password']
+        print(f"The username and email, password in Login function is :{username} {email} {password}")
+        if User.objects.filter(email = email).exists() == True :
+            # User exist and we can try to login in the account
+            user = authenticate(username = username, password = password)
+            if user is not None :
+                login(request,user)
+                return JsonResponse({"message": "Signup successful"}, status=201)
 
-    else:
-        print("The User does not exist ")
-        return Response({"status" : "User login Unsuccessfull"})
+        else:
+            print("The User does not exist ")
+            return JsonResponse({"message": "Signup Unsuccessful"}, status=400)
     
+    except Exception as e :
+        return JsonResponse({"message": "Signup Unsuccessful"}, status=400)
 
-    # name = models.CharField(max_length=200)
-    # description = models.CharField(max_length=500)
-    # amount = models.IntegerField()
-    # date = models.CharField(max_length=10)
-    # bank = models.CharField(max_length=20,null=True)
-    # category = models.CharField(max_length=20,null=True)
-    # investement = models.BooleanField(default = False)
 
 @api_view(['POST'])
 def send_expense_info(request):
@@ -126,3 +124,20 @@ def send_expense_info(request):
             return Response({"message": "Expense unsuccessfully!"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         print("The request method is not POST ")
+
+# This function gets all the information of the expenses which a user is login
+@api_view(['POST'])
+def get_all_expenses(request):
+    user = request.user
+    print(f'The requested user is : {user}')
+    expenses = Expenses.objects.filter(user = user ).values()
+    print(f"The Expenses that we get for the user {user} is this {expenses}")
+
+    if user is None :
+        print("The User is reported as null ")
+        # Need to send a Toast as a response here to notify the user about its expenses list 
+        return Response({"message": "Expense List for the user is completely Null"}, status=status.HTTP_400_BAD_REQUEST)
+
+    else :
+        print("The user is not Null ")
+        return Response({"message": "User  successfully!"}, status=status.HTTP_200_OK)

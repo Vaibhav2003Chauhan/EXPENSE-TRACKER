@@ -1,5 +1,9 @@
 import React, { use } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 function Signup() {
     const [username, set_username] = useState("");
@@ -20,8 +24,8 @@ function Signup() {
         console.log(userdata)
 
         if (username == null || email == null || password == null || cpassword == null) {
-            alert("Please enter all value ");
 
+            toast.warning("Please Ensure all values are filled");
         }
         else {
             if (password == cpassword) {
@@ -41,14 +45,16 @@ function Signup() {
                     }
                     const result = await response.json(); // Parse the JSON response
                     console.log('Success:', result);
+                    toast.success("Account Created Successfully");
                 }
                 catch (err) {
                     console.log("The Log is in the error ");
+                    toast.danger("Account Created Successfully");
                     console.log(err)
                 }
             }
             else {
-                alert("Both passwords are not a match")
+                toast.warning("Please Ensure all values are filled");
             }
         }
     }
