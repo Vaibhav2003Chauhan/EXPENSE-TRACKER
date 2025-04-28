@@ -31,3 +31,9 @@ class totals(models.Model):
 
     def __str__(self):
         return f"Totals for {self.user.username}"
+    
+
+class PersonalEmis(models.Model):
+    EmiName = models.CharField(default="Your Emi Name")
+    EmiAmount = models.IntegerField(default=000,null=False)
+    EmiDate = models.CharField(null=False)
