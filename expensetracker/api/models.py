@@ -11,8 +11,8 @@ class Expenses(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
     amount = models.IntegerField()
-    date = models.CharField(max_length=10)
-    bank = models.CharField(max_length=20, null=True)
+    date = models.CharField(max_length=100)
+    bank = models.CharField(max_length=200, null=True)
     category = models.CharField(max_length=20, null=True)
     investment = models.BooleanField(default=False)
 
@@ -34,6 +34,6 @@ class totals(models.Model):
     
 
 class PersonalEmis(models.Model):
-    EmiName = models.CharField(default="Your Emi Name")
-    EmiAmount = models.IntegerField(default=000,null=False)
-    EmiDate = models.CharField(null=False)
+    EmiName = models.CharField(default="Your Emi Name",max_length=1000)
+    EmiAmount = models.IntegerField(default=000,null=False,max_length=10000)
+    EmiDate = models.CharField(null=False,max_length=100)

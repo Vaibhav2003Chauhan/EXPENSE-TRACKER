@@ -129,6 +129,7 @@ def send_expense_info(request):
 @api_view(['POST'])
 def get_all_expenses(request):
     user = request.user
+    print(user)
     print(f'The requested user is : {user}')
     expenses = Expenses.objects.filter(user = user ).values()
     print(f"The Expenses that we get for the user {user} is this {expenses}")
