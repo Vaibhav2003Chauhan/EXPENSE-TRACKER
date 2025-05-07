@@ -57,17 +57,17 @@ function App() {
   ];
 
   // 3. Use useEffect to load data (simulating API call)
-  useEffect(() => {
-    // Simulate async data fetching
-    const get_expense_info = async () => {
-      console.log("The Function for getting the Information has been hit");
-      const response = await fetch(`http://127.0.0.1:8000/api/get_all_expenses`)
+  // useEffect(() => {
+  //   // Simulate async data fetching
+  //   const get_expense_info = async () => {
+  //     console.log("The Function for getting the Information has been hit");
+  //     const response = await fetch(`http://127.0.0.1:8000/api/get_all_expenses`)
 
-      setFetchedExpenses(sampleData);
-    };
+  //     setFetchedExpenses(sampleData);
+  //   };
 
-    get_expense_info();
-  }, []);
+  //   get_expense_info();
+  // }, []);
 
   return (
     <>
@@ -83,7 +83,7 @@ function App() {
         pauseOnHover
       />
       {/* 4. Pass props correctly */}
-      <ExpenseList fetched_expenses={fetched_expenses} />
+      {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
       <Login setuser={setuser} />
     </>
   )

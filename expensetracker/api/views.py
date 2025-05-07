@@ -46,9 +46,11 @@ def signin(request):
     try :
         data = request.data
         print(f"The Data in the Signup function is {data}")
-        username = data['username']
         email = data['email']
         password = data['password']
+        user_obj = User.objects.get(email = email)
+        username = user_obj.username
+        print(username)
         print(f"The username and email, password in Login function is :{username} {email} {password}")
         if User.objects.filter(email = email).exists() == True :
             # User exist and we can try to login in the account
@@ -126,7 +128,7 @@ def send_expense_info(request):
         print("The request method is not POST ")
 
 # This function gets all the information of the expenses which a user is login
-@api_view(['POST'])
+@api_view(['GET'])
 def get_all_expenses(request):
     user = request.user
     print(user)

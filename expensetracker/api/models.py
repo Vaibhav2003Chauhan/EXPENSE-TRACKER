@@ -35,5 +35,5 @@ class totals(models.Model):
 
 class PersonalEmis(models.Model):
     EmiName = models.CharField(default="Your Emi Name",max_length=1000)
-    EmiAmount = models.IntegerField(default=000,null=False,max_length=10000)
+    EmiAmount = models.IntegerField(default=000,null=False)
     EmiDate = models.CharField(null=False,max_length=100)
