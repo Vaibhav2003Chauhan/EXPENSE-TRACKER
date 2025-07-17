@@ -13,3 +13,14 @@
   background: transparent !important;
   border: none !important;
 } */
+
+.main_container {
+  background-color: rgb(73, 73, 83);
+  padding:2px 2px;
+  
+}
+
+.logo_section img {
+  height: 15vh;
+  width: 12vw;
+}

@@ -6,6 +6,7 @@ import ExpenseList from './Components/ExpenseList';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './Components/Login';
+import Header from './Components/Header';
 
 function App() {
   // 1. Create state for expenses
@@ -82,9 +83,11 @@ function App() {
         draggable
         pauseOnHover
       />
-      {/* 4. Pass props correctly */}
       {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
-      <Login setuser={setuser} />
+      {/* <Login setuser={setuser} /> */}
+
+      <Header />
+
     </>
   )
 }
