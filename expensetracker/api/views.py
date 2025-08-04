@@ -7,6 +7,11 @@ from api.models import Expenses, totals
 from rest_framework import status
 from django.http import JsonResponse
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
 #Admin pass and id vishu 12
 invested_money=0 
 spended_money=0
@@ -120,7 +125,6 @@ def send_expense_info(request):
                 }
             }, status=status.HTTP_201_CREATED)
 
-
         except Exception as e :
             print(f"The Exception occur in the send Expense Info Function is {e}")
             return Response({"message": "Expense unsuccessfully!"}, status=status.HTTP_400_BAD_REQUEST)
@@ -144,3 +148,59 @@ def get_all_expenses(request):
     else :
         print("The user is not Null ")
         return Response({"message": "User  successfully!"}, status=status.HTTP_200_OK)
+
+
+
+def send_emi_notification(request):
+    print("The send Emi Function has been invoked in here ")
+    user = request.user
+    print(f"Hey {user} is the current login user is this")
+    notification_number = user.phone
+    notification_email = user.email
+    print(f"The number which require notification to be send is this : {notification_number}")
+    print(f"The email which require notification to be send is this : {notification_email}")
+
+    # Fetch the user's EMI details
+    try:
+        personal_emi = user.personal_emis  # OneToOne relation
+        emi_name = personal_emi.EmiName
+        emi_amount = personal_emi.EmiAmount
+        emi_due_date = personal_emi.EmiDueDate
+        emi_months = personal_emi.EmiMonths
+    except Exception as e:
+        print(f"No EMI data found for user in Exception {e}.")
+        return  
+
+    # Email setup
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+    your_email = ''         # <-- Put your sender email here
+    your_password = ''      # <-- Put your app password here
+
+    to_email = notification_email
+    subject = f"Upcoming EMI Reminder: {emi_name}"
+    body = (
+        f"Hello {user.username},\n\n"
+        f"This is a reminder that your EMI for '{emi_name}' of amount ₹{emi_amount} "
+        f"is due on {emi_due_date}.\n"
+        f"This EMI is scheduled for {emi_months} month(s).\n\n"
+        "Please ensure timely payment to avoid penalties.\n\n"
+        "Thank you."
+    )
+
+    msg = MIMEMultipart()
+    msg['From'] = your_email
+    msg['To'] = to_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(your_email, your_password)
+        server.sendmail(your_email, to_email, msg.as_string())
+        print('Email sent successfully!')
+    except Exception as e:
+        print(f'Failed to send email: {e}')
+    finally:
+        server.quit()
