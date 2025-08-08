@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import login,logout,authenticate
-from api.models import Expenses, totals
+from api.models import Expenses, totals, PersonalEmis
 from rest_framework import status
 from django.http import JsonResponse
 
@@ -150,7 +150,7 @@ def get_all_expenses(request):
         return Response({"message": "User  successfully!"}, status=status.HTTP_200_OK)
 
 
-
+@api_view(['POST'])
 def send_emi_notification(request):
     print("The send Emi Function has been invoked in here ")
     user = request.user
@@ -204,3 +204,41 @@ def send_emi_notification(request):
         print(f'Failed to send email: {e}')
     finally:
         server.quit()
+
+
+@api_view(['POST'])
+def add_emis_in_db(request):
+    print("Adding Emis Function got hit")
+    if request.method == 'POST':
+
+        try :
+            data = request.data
+
+            user = request.user
+            print(f"The Current login user is : {user}")
+
+            print(f"The Data Encounter in the add_emis_in_db is{data}")
+            emi_name = data['emi_name']
+            emi_total_amount = data['emi_total_amount']
+            emi_monthly_deduction_date = data['emi_monthly_deduction_date']
+            emi_monthly_installement_amount = data['emi_monthly_installement_amount']
+            emi_total_months_duration = data['emi_total_months_duration']
+
+            personal_emi = PersonalEmis.objects.create(emi_name = emi_name,
+                                                    emi_total_amount = emi_total_amount,
+                                                    emi_monthly_deduction_date = emi_monthly_deduction_date,
+                                                    emi_monthly_installement_amount = emi_monthly_installement_amount,
+                                                    emi_total_months_duration = emi_total_months_duration)
+
+            personal_emi.save()
+            return Response({"message": "Personal Emi Created Successfully"}, status=status.HTTP_200_OK)
+
+        except Exception as e :
+            print("The Exception Occur while adding emis from server is {e}")
+            return Response({"message": "Personal Emi Creation Unsuccessfully"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    else:
+        print("The Request is not POST request")
+        return Response({"message": "Personal Emi Creation Unsuccessfully"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+

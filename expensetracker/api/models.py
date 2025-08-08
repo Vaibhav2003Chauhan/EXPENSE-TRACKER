@@ -42,13 +42,21 @@ class PersonalEmis(models.Model):
         null=True  
     )
 
-    EmiName = models.CharField(default="Your Emi Name",max_length=1000)
-    EmiAmount = models.IntegerField(default=000,null=False)
-    EmiDate = models.CharField(null=False,max_length=100)
-    EmiAmount = models.IntegerField(default=000, null=False)
-    EmiDueDate = models.CharField(null=False, max_length=100)
-    EmiMonths = models.IntegerField(null=False, default=00)  # how long does the EMI will run for an employee
+    emi_name = models.CharField(default="Your Emi Name",max_length=1000)
+    emi_total_amount = models.IntegerField(default=000,null=False)
+    emi_monthly_deduction_date = models.CharField(null=False,max_length=100)
+    emi_monthly_installement_amount = models.IntegerField(default=000, null=False)
+    emi_total_months_duration = models.IntegerField(null=False, default=00) 
 
     def __str__(self):
-        return f"The User EMI is this {self.EmiName}"
+        return f"The User EMI is this {self.emi_name}"
 
+class ImportantBills(models.Model):
+    user = models.OneToOneField( 
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='ImportantBills',
+        null=True  )
+    bill_name = models.CharField(default="Your Bill name ",max_length=9999)
+    date_of_expenditure = models.CharField(null = False,max_length = 100000)
+    bill_pdf = models.ImageField()
