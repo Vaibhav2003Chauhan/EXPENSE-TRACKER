@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './Components/Login';
 import Header from './Components/Header';
+import AddEmis from './Components/AddEmis';
 
 function App() {
   // 1. Create state for expenses
@@ -86,7 +87,8 @@ function App() {
       {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
       {/* <Login setuser={setuser} /> */}
 
-      <Header />
+      {/* <Header /> */}
+      <AddEmis />
 
     </>
   )

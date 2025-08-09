@@ -50,7 +50,7 @@ function Login() {
                 <div className="col-md-6 bg-primary text-white p-5 rounded-start-4">
                     <div className="d-flex flex-column h-100 justify-content-center">
                         <h1 className="display-4 mb-4">Welcome Back!</h1>
-                        <h3 className="lead">Track Your Expenses Efficiently</h3>
+                        <h3 className="lead">Manage Your Expenses Efficiently !!!!</h3>
                     </div>
                 </div>
                 <div className="col-md-6 bg-white p-5 rounded-end-4">
