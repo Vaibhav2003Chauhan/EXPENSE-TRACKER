@@ -6,7 +6,10 @@ from django.contrib.auth import login,logout,authenticate
 from api.models import Expenses, totals, PersonalEmis
 from rest_framework import status
 from django.http import JsonResponse
+import datetime # for getting the latest time zone of the user. 
 
+
+# Setup for the Sending the Mail of User SMTP [Simple Mail Transfer Protocol]
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -160,6 +163,10 @@ def send_emi_notification(request):
     print(f"The number which require notification to be send is this : {notification_number}")
     print(f"The email which require notification to be send is this : {notification_email}")
 
+    # Current Date and Time setup 
+    current_date = datetime.datetime.now()
+    print(f"The Current Date fetched in the send_emi_notification method is {current_date}")
+
     # Fetch the user's EMI details
     try:
         personal_emi = user.personal_emis  # OneToOne relation
@@ -224,7 +231,8 @@ def add_emis_in_db(request):
             emi_monthly_installement_amount = data['emi_monthly_installement_amount']
             emi_total_months_duration = data['emi_total_months_duration']
 
-            personal_emi = PersonalEmis.objects.create(emi_name = emi_name,
+            personal_emi = PersonalEmis.objects.create( user = request.user,
+                                                    emi_name = emi_name,
                                                     emi_total_amount = emi_total_amount,
                                                     emi_monthly_deduction_date = emi_monthly_deduction_date,
                                                     emi_monthly_installement_amount = emi_monthly_installement_amount,

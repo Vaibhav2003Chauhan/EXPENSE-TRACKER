@@ -49,7 +49,7 @@ class PersonalEmis(models.Model):
     emi_total_months_duration = models.IntegerField(null=False, default=00) 
 
     def __str__(self):
-        return f"The User EMI is this {self.emi_name}"
+        return f"{self.emi_name}"
 
 class ImportantBills(models.Model):
     user = models.OneToOneField( 
