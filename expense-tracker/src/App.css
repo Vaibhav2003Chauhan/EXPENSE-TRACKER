@@ -16,11 +16,39 @@
 
 .main_container {
   background-color: rgb(73, 73, 83);
-  padding:2px 2px;
-  
+  padding: 2px 2px;
+
 }
 
 .logo_section img {
   height: 15vh;
   width: 12vw;
+}
+
+.main_container {
+  display: flex;
+
+}
+
+.menu_sections {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu_items {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  list-style: none;
+
+}
+
+.menu_items :hover {
+  background-color: aliceblue;
+  color: black;
+  padding: 5px 5px;
+  border-radius: 5px;
 }

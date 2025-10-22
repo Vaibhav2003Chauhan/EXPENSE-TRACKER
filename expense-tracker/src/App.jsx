@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './Components/Login';
 import Header from './Components/Header';
 import AddEmis from './Components/AddEmis';
+import { BrowserRouter } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 
 function App() {
   // 1. Create state for expenses
@@ -73,23 +75,25 @@ function App() {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
-      {/* <Login setuser={setuser} /> */}
+      <BrowserRouter>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
+        {/* <Login setuser={setuser} /> */}
 
-      {/* <Header /> */}
-      <AddEmis />
+        <Header />
+        {/* <AddEmis /> */}
 
+      </BrowserRouter>
     </>
   )
 }
