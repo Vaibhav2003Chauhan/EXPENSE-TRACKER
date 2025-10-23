@@ -10,6 +10,7 @@ import Header from './Components/Header';
 import AddEmis from './Components/AddEmis';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Router } from 'react-router-dom';
+import Rout from './Components/Rout';
 
 function App() {
   // 1. Create state for expenses
@@ -75,25 +76,25 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
-        {/* <Login setuser={setuser} /> */}
 
-        <Header />
-        {/* <AddEmis /> */}
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      /> */}
+      {/* <ExpenseList fetched_expenses={fetched_expenses} /> */}
+      {/* <Login setuser={setuser} /> */}
+      {/* 
+      <Header /> */}
+      {/* <AddEmis /> */}
 
-      </BrowserRouter>
+      <Rout />
     </>
   )
 }
