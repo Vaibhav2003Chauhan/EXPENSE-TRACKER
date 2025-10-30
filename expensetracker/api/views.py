@@ -250,3 +250,23 @@ def add_emis_in_db(request):
         return Response({"message": "Personal Emi Creation Unsuccessfully"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+@api_view(['GET'])
+def get_all_emis(request):
+    print("The getting all emis function has been hitted")
+    # user = request.user 
+
+    # Hardcoding it here for react temporary setup please 
+    user = User.objects.get(id = 1)
+    print(user)
+    print(type(user))
+    user_emis = PersonalEmis.objects.filter(user = user ).values()
+    print(f"Users all emis are as : {user_emis}")
+
+    if user is None :
+        print("The User is reported as null ")
+        # Need to send a Toast as a response here to notify the user about its expenses list 
+        return Response({"message": "Expense List for the user is completely Null", "emis": []}, status=status.HTTP_400_BAD_REQUEST)
+
+    else :
+        print("The user is not Null ")
+        return Response({"message": "BOI EMis hitted here !", "emis" : user_emis}, status=status.HTTP_200_OK)

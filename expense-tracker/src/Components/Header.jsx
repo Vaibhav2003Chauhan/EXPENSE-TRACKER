@@ -7,7 +7,7 @@ function Header() {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">Navbar</Link>
+          <Link className="navbar-brand text-500" to="/">EXPENSE TRACKER </Link>
 
           <button
             className="navbar-toggler"
@@ -25,33 +25,26 @@ function Header() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                <Link className="nav-link active" aria-current="page" to="/all_expense_list">All Expense </Link>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" to="/link">Link</Link>
+                <Link className="nav-link" to="/add_new_emi">Add Emi </Link>
               </li>
 
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
-                  to="#"
+                  to="/view_all_emis"
                   role="button"
-                  data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  All EMIS 
                 </Link>
-                <ul className="dropdown-menu">
-                  <li><Link className="dropdown-item" to="/action">Action</Link></li>
-                  <li><Link className="dropdown-item" to="/another-action">Another Action</Link></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><Link className="dropdown-item" to="/something-else">Something Else</Link></li>
-                </ul>
-              </li>
+                </li>
 
               <li className="nav-item">
-                <Link className="nav-link disabled" aria-disabled="true" to="#">
+                <Link className="nav-link" aria-disabled="true" to="#">
                   Disabled
                 </Link>
               </li>

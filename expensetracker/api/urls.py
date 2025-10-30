@@ -8,5 +8,6 @@ urlpatterns =[
     path('signin',views.signin, name="signin"),
     path('send_expense_info',views.send_expense_info, name = "send_expense_info"),
     path('get_all_expenses',views.get_all_expenses, name = "get_all_expenses"),
-    path('add_emis_in_db',views.add_emis_in_db, name = "add_emis_in_db")
+    path('add_emis_in_db',views.add_emis_in_db, name = "add_emis_in_db"),
+    path('get_all_emis',views.get_all_emis, name = "get_all_emis")
 ]

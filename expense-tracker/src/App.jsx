@@ -12,54 +12,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { Route, Router } from 'react-router-dom';
 import Rout from './Components/Rout';
 
+/*    
+    Added the Basic setup so that Functional setup will work properly without login or signup 
+    to remove centering of the add emi option 
+
+*/
+
 function App() {
   // 1. Create state for expenses
   const [fetched_expenses, setFetchedExpenses] = useState([]);
   const [user, setuser] = useState(null);
 
   // 2. Fix the boolean values (true/false should be lowercase)
-  const sampleData = [
-    {
-      id: 1,
-      expense_name: "Biryani",
-      bank: "ICICI",
-      description: "This is for Food",
-      amount: 7000,
-      category: "FOOD",
-      investement: false,  // Fixed capitalization
-      date: "22-11-2025"
-    },
-    {
-      id: 2,
-      expense_name: "RAJMA CHAWAL",
-      bank: "BOB",
-      description: "This is for Lunch",
-      amount: 40,
-      category: "FOOD",
-      investement: false,
-      date: "22-11-2025"
-    },
-    {
-      id: 3,
-      expense_name: "Groccery",
-      bank: "HDFC",
-      description: "This is for Month Expense",
-      amount: 7000,
-      category: "FOOD",
-      investement: false,
-      date: "22-11-2025"
-    },
-    {
-      id: 4,
-      expense_name: "Stocks",
-      bank: "HDFC",
-      description: "This is for Month Savings",
-      amount: 10000,
-      category: "Invested",
-      investement: true,  // Fixed capitalization
-      date: "24-11-2025"
-    }
-  ];
+  
 
   // 3. Use useEffect to load data (simulating API call)
   // useEffect(() => {
