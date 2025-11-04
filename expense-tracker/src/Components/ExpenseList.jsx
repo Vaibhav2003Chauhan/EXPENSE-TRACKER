@@ -9,7 +9,7 @@ function ExpenseList({ fetched_expenses }) {
             <div className="card">
               <div className="card-body">
                 <h2 className="text-center mb-4">Your Expense History</h2>
-
+ 
                 {fetched_expenses.length === 0 ? (
                   <div className="alert alert-info text-center">
                     You have not made any expenses yet.
