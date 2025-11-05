@@ -263,7 +263,7 @@ def get_all_emis(request):
     print(f"Users all emis are as : {user_emis}")
 
     if user is None :
-        print("The User is reported as null ")
+        print("The User is reported   as null ")
         # Need to send a Toast as a response here to notify the user about its expenses list 
         return Response({"message": "Expense List for the user is completely Null", "emis": []}, status=status.HTTP_400_BAD_REQUEST)
 
